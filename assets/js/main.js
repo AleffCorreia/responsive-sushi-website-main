@@ -67,6 +67,7 @@ const scrollActive = () => {
 
 window.addEventListener('scroll', scrollActive);
 /*=============== DARK LIGHT THEME ===============*/ 
+
 const themeButton = document.getElementById('theme-button');
 const darkTheme = 'dark-theme';
 const iconTheme = 'ri-sun-line';
@@ -77,7 +78,7 @@ const selectedIcon = localStorage.getItem('selected-icon');
 
 //We obtain the current theme that the interface has by validating the dark-theme class
 const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
-const gertCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line';
+const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line';
 
 //We validate if the user previously chose a topic
 if(selectedTheme){
@@ -92,10 +93,28 @@ themeButton.addEventListener('click', () => {
     //Add or remove the dark / icon
     document.body.classList.toggle(darkTheme);
     themeButton.classList.toggle(iconTheme);
+    console.log('running')
 
     //We save the theme and the current icon that the user chose
     localStorage.setItem('selected-theme', getCurrentTheme());
     localStorage.setItem('selected-icon', getCurrentIcon());
 });
 
+window.addEventListener('load', () => {
+    console.log(getCurrentTheme + " " + getCurrentIcon)
+})
+
 /*=============== SCROLL REVEAL ANIMATION ===============*/
+const sr = ScrollReveal({
+    origin: 'top',
+    distance: '60px',
+    duration: 2500,
+    delay: 400,
+    reset: true //Animations repeat
+})
+
+sr.reveal(`.home__image, .newsletter__container, .footer__logo, .footer__description, .footer__content, .footer__info`);
+sr.reveal(`.home__data`, {origin: 'bottom'});
+sr.reveal(`.about__data, .recently__data`, {origin: 'left'});
+sr.reveal(`.about__img, .recently__img`, {origin: 'right'});
+sr.reveal(`.popular__card`, {interval: 100});
